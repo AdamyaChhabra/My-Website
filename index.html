@@ -6,12 +6,15 @@
     <title>FitLife - Your Fitness Journey</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background: url('background.jpg') no-repeat center center/cover;
             color: #fff;
+            overflow-x: hidden;
         }
         header {
             background: rgba(0, 0, 0, 0.9);
@@ -23,51 +26,64 @@
             letter-spacing: 2px;
             text-align: center;
             box-shadow: 0px 4px 15px rgba(255, 152, 0, 0.5);
+            position: relative;
+            z-index: 2;
         }
-        .container {
-            padding: 20px;
-            max-width: 1200px;
-            margin: auto;
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+        .goodies {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .goodies span {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.3;
+            animation: float 5s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .home {
             text-align: center;
+            padding: 150px 20px;
+            animation: fadeIn 2s ease-in-out;
+            position: relative;
+            z-index: 2;
         }
-        .section {
-            background: rgba(0, 0, 0, 0.85);
-            margin: 30px 0;
-            padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0px 5px 25px rgba(255, 152, 0, 0.5);
-            transition: 0.3s ease-in-out;
-        }
-        .section:hover {
-            transform: translateY(-10px);
-        }
-        h2 {
+        .home h1 {
+            font-size: 50px;
             color: #ff9800;
-            font-size: 34px;
-            margin-bottom: 15px;
         }
-        p {
+        .home p {
             font-size: 22px;
-            line-height: 1.8;
+            margin-top: 20px;
         }
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            width: 100%;
-            max-width: 400px;
-            margin: auto;
-        }
-        input {
-            width: 100%;
-            padding: 15px;
-            border-radius: 10px;
-            border: none;
-            font-size: 18px;
-            text-align: center;
-        }
-        button {
+        .home button {
+            margin-top: 30px;
             background: linear-gradient(45deg, #ff9800, #e68900);
             color: white;
             padding: 15px 40px;
@@ -79,40 +95,71 @@
             transition: 0.3s;
             box-shadow: 0px 4px 15px rgba(255, 152, 0, 0.6);
         }
-        button:hover {
+        .home button:hover {
             background: linear-gradient(45deg, #e68900, #d97706);
             transform: scale(1.15);
         }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .signup-section {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 25px rgba(255, 152, 0, 0.7);
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            text-align: center;
+        }
+        .signup-section input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            font-size: 18px;
+            text-align: center;
+        }
         .dashboard {
             display: none;
-            padding: 20px;
+            padding: 50px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 15px;
+            box-shadow: 0px 5px 25px rgba(255, 152, 0, 0.7);
+            margin-top: 50px;
             text-align: left;
+            animation: fadeIn 1s ease-in-out;
         }
         .dashboard h2 {
             text-align: center;
+            color: #ff9800;
             font-size: 34px;
         }
     </style>
 </head>
 <body>
+    <video class="video-background" autoplay muted loop>
+        <source src="fitness_background.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="overlay"></div>
     <header>FitLife - Your Fitness Journey</header>
+    <div class="home">
+        <h1>Welcome to FitLife</h1>
+        <p>Your ultimate destination for fitness, nutrition, and wellness.</p>
+        <button onclick="document.getElementById('join-section').scrollIntoView({behavior: 'smooth'})">Join Now</button>
+    </div>
     <div class="container">
-        <div class="section">
-            <h2>Welcome to FitLife</h2>
-            <p>Your ultimate destination for fitness, nutrition, and wellness.</p>
-            <button onclick="document.getElementById('join-section').scrollIntoView({behavior: 'smooth'})">Join Now</button>
-        </div>
-        <div class="section">
-            <h2>What We Offer</h2>
-            <ul>
-                <li>🔥 Personalized Workout Plans</li>
-                <li>🥗 Nutrition Guides & Meal Plans</li>
-                <li>🏋️ Strength & Cardio Training</li>
-                <li>🧘 Yoga & Meditation</li>
-                <li>📅 Progress Tracking & Challenges</li>
-            </ul>
-        </div>
-        <div id="join-section" class="section">
+        <div id="join-section" class="signup-section">
             <h2>Sign Up</h2>
             <p>Start your fitness journey today!</p>
             <form onsubmit="event.preventDefault(); showDashboard();">
@@ -122,20 +169,15 @@
                 <button type="submit">Join Now</button>
             </form>
         </div>
-    </div>
-    <div class="dashboard" id="dashboard">
-        <h2>Your Fitness Dashboard</h2>
-        <div class="section">
-            <h3>🏋️ Workout Plan</h3>
-            <p>Customized workouts to meet your fitness goals.</p>
-        </div>
-        <div class="section">
-            <h3>🥗 Diet Plan</h3>
-            <p>Personalized meal plans for a balanced diet.</p>
-        </div>
-        <div class="section">
-            <h3>📊 Progress Tracking</h3>
-            <p>Track your progress and reach your milestones.</p>
+        <div id="dashboard" class="dashboard">
+            <h2>Your Fitness Dashboard</h2>
+            <p>Welcome to your personalized fitness space!</p>
+            <h3>Workout Plans</h3>
+            <p>Customized workout plans to fit your goals.</p>
+            <h3>Diet Plans</h3>
+            <p>Healthy meal plans to support your fitness journey.</p>
+            <h3>Progress Report</h3>
+            <p>Track your fitness progress and achievements.</p>
         </div>
     </div>
     <footer>
