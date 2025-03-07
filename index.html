@@ -11,85 +11,86 @@
             margin: 0;
             padding: 0;
             background: url('background.jpg') no-repeat center center/cover;
-            color: #333;
+            color: #fff;
         }
         header {
-            background: rgba(0, 0, 0, 0.8);
-            color: #fff;
+            background: rgba(0, 0, 0, 0.9);
+            color: #ff9800;
             padding: 20px;
-            font-size: 24px;
+            font-size: 36px;
+            font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
             text-align: center;
+            box-shadow: 0px 4px 15px rgba(255, 152, 0, 0.5);
         }
         .container {
             padding: 20px;
             max-width: 1200px;
             margin: auto;
+            text-align: center;
         }
         .section {
-            background: rgba(255, 255, 255, 0.95);
-            margin: 20px;
-            padding: 30px;
+            background: rgba(0, 0, 0, 0.85);
+            margin: 30px 0;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 25px rgba(255, 152, 0, 0.5);
+            transition: 0.3s ease-in-out;
+        }
+        .section:hover {
+            transform: translateY(-10px);
+        }
+        h2 {
+            color: #ff9800;
+            font-size: 34px;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 22px;
+            line-height: 1.8;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+        }
+        input {
+            width: 100%;
+            padding: 15px;
             border-radius: 10px;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+            font-size: 18px;
             text-align: center;
         }
         button {
-            background: #ff5722;
+            background: linear-gradient(45deg, #ff9800, #e68900);
             color: white;
-            padding: 12px 25px;
+            padding: 15px 40px;
             border: none;
             cursor: pointer;
-            font-size: 20px;
-            border-radius: 5px;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 50px;
             transition: 0.3s;
+            box-shadow: 0px 4px 15px rgba(255, 152, 0, 0.6);
         }
         button:hover {
-            background: #e64a19;
-            transform: scale(1.05);
+            background: linear-gradient(45deg, #e68900, #d97706);
+            transform: scale(1.15);
         }
-        img {
-            max-width: 100%;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-        footer {
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            text-align: center;
-            padding: 15px;
-            margin-top: 30px;
-        }
-        input, button {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-        }
-        .popup {
+        .dashboard {
             display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
             padding: 20px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            z-index: 1000;
+            text-align: left;
         }
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
+        .dashboard h2 {
+            text-align: center;
+            font-size: 34px;
         }
     </style>
 </head>
@@ -99,7 +100,6 @@
         <div class="section">
             <h2>Welcome to FitLife</h2>
             <p>Your ultimate destination for fitness, nutrition, and wellness.</p>
-            <img src="welcome.jpg" alt="Welcome to FitLife">
             <button onclick="document.getElementById('join-section').scrollIntoView({behavior: 'smooth'})">Join Now</button>
         </div>
         <div class="section">
@@ -111,53 +111,41 @@
                 <li>🧘 Yoga & Meditation</li>
                 <li>📅 Progress Tracking & Challenges</li>
             </ul>
-            <img src="features.jpg" alt="Our Features">
         </div>
         <div id="join-section" class="section">
             <h2>Sign Up</h2>
             <p>Start your fitness journey today!</p>
-            <form onsubmit="event.preventDefault(); showPopup();">
+            <form onsubmit="event.preventDefault(); showDashboard();">
                 <input type="text" placeholder="Full Name" required>
                 <input type="email" placeholder="Email" required>
                 <input type="password" placeholder="Create Password" required>
                 <button type="submit">Join Now</button>
             </form>
         </div>
-        <div id="dashboard" class="container" style="display:none;">
-            <header>Welcome to Your FitLife Dashboard</header>
-            <div class="section">
-                <h2>Your Fitness Chart</h2>
-                <img src="fitness-chart.jpg" alt="Fitness Chart">
-            </div>
-            <div class="section">
-                <h2>Workout Plans</h2>
-                <img src="workout-plans.jpg" alt="Workout Plans">
-            </div>
-            <div class="section">
-                <h2>Diet Plans</h2>
-                <img src="diet-plans.jpg" alt="Diet Plans">
-            </div>
-        </div>
     </div>
-    <div class="overlay" id="overlay"></div>
-    <div class="popup" id="popup">
-        <h2>Registration Successful!</h2>
-        <p>Welcome to FitLife! Click below to access your dashboard.</p>
-        <button onclick="hidePopup()">Go to Dashboard</button>
+    <div class="dashboard" id="dashboard">
+        <h2>Your Fitness Dashboard</h2>
+        <div class="section">
+            <h3>🏋️ Workout Plan</h3>
+            <p>Customized workouts to meet your fitness goals.</p>
+        </div>
+        <div class="section">
+            <h3>🥗 Diet Plan</h3>
+            <p>Personalized meal plans for a balanced diet.</p>
+        </div>
+        <div class="section">
+            <h3>📊 Progress Tracking</h3>
+            <p>Track your progress and reach your milestones.</p>
+        </div>
     </div>
     <footer>
         &copy; 2025 FitLife. All rights reserved.
     </footer>
     <script>
-        function showPopup() {
-            document.getElementById('popup').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
-        }
-        function hidePopup() {
-            document.getElementById('popup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
+        function showDashboard() {
             document.getElementById('join-section').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
+            alert('Welcome to your dashboard!');
         }
     </script>
 </body>
